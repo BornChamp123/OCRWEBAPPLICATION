@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<!--
+	Visualize by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>OCR Web Application</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<script src="https://cdn.rawgit.com/naptha/tesseract.js/0.2.0/dist/tesseract.js">
+		</script>
+		<style>
+		#ocr_results {
+			background-color: gray;
+			border-radius: 8px;
+			 padding: 20px;
+			color: white;
+		}
+		img {
+			border-radius: 8px;
+			width: 70%;
+		}
+		
+		</style>
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<!--<span class="avatar"><img src="images/avatar.jpg" alt="" /></span>
+						<h1>This is <strong>Visualize</strong>, a responsive site template designed by <a href="http://templated.co">TEMPLATED</a><br />
+						and released for free under the Creative Commons License.</h1>
+						<ul class="icons">
+							<li><a href="#" class="icon style2 fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon style2 fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon style2 fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="#" class="icon style2 fa-500px"><span class="label">500px</span></a></li>
+							<li><a href="#" class="icon style2 fa-envelope-o"><span class="label">Email</span></a></li>
+						</ul>/*-->
+					</header>
+
+				<!-- Main -->
+					<section id="main">
+					<div id="photo"></div>
+					<input type="text" id="url" placeholder="Image URL" />
+					<input type="button" id="go_button" value="Run" />
+					<div id="ocr_results"> </div>
+					<div id="ocr_status"> </div>
+
+
+					</section>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<!--<p>&copy; Untitled. All rights reserved. Design: <a href="http://templated.co">TEMPLATED</a>. Demo Images: <a href="http://unsplash.com">Unsplash</a>.</p>-->
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script>
+  function runOCR(url) {
+    Tesseract.recognize(url)
+         .then(function(result) {
+            document.getElementById("ocr_results")
+                    .innerText = result.text;
+         }).progress(function(result) {
+            document.getElementById("ocr_status")
+                    .innerText = result["status"] + " (" +
+                        (result["progress"] * 100) + "%)";
+        });
+  }
+   document.getElementById("go_button")
+        .addEventListener("click", function(e) {
+            var url = document.getElementById("url").value;
+            runOCR(url);
+        });
+   document.getElementById('go_button').addEventListener('click', function(){
+   document.getElementById('photo').innerHTML = '<img src="'+ document.getElementById('url').value +'" alt="Image" />';
+});
+  </script>	
+	</body>
+</html>
